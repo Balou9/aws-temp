@@ -1,7 +1,5 @@
-
-
 AWSTemplateFormatVersion: 2010-09-09
-Description: stack which prints a receipt on purchase of goods with the total price and the sales taxes
+Description: stack which returns  a shopping cart receipt with the total price and the sales taxes
 
 Metadata:
   AWS::Cloudformation::Interface:
@@ -53,7 +51,7 @@ Resources:
     Properties:
       Name: !Sub ${AWS::StackName}-restapi
       Tags:
-        - Key: "itemis-cc:name"
+        - Key: "receipt-cc:name"
           Value: !Sub ${AWS::StackName}-restapi
 
   RequestValidator:
@@ -64,17 +62,17 @@ Resources:
       ValidateRequestBody: True
       ValidateRequestParameters: True
 
-  ReceiptCollectionResource:
+  CollectionResource:
     Type: AWS::ApiGateway::Resource
     Properties:
       ParentId: !GetAtt RestApi.RootResourceId
-      PathPart: receipt
+      PathPart:
       RestApiId: !Ref RestApi
 
   ShoppingBasketResource:
     Type: AWS::ApiGateway::Resource
     Properties:
-      ParentId: !Ref ReceiptCollectionResource
+      ParentId: !Ref CollectionResource
       PathPart: "{shoppingbasket}"
       RestApiId: !Ref RestApi
 
@@ -103,7 +101,7 @@ Resources:
     Type: AWS::IAM::Role
     Properties:
       Tags:
-        - Key: "itemis-cc:name"
+        - Key: "receipt-cc:name"
           Value: !Sub ${ReadSalesTaxesTotalPriceHandlerName}-executionrole
       AssumeRolePolicyDocument:
         Version: 2012-10-17
@@ -130,7 +128,7 @@ Resources:
     Type: AWS::Lambda::Function
     Properties:
       Tags:
-        - Key: "itemis-cc:name"
+        - Key: "receipt-cc:name"
           Value: !Ref ReadSalesTaxesTotalPriceHandlerName
       Code:
         ZipFile: // dummy
@@ -155,7 +153,7 @@ Resources:
       Action: lambda:InvokeFunction
       FunctionName: !GetAtt ReadSalesTaxesTotalPriceHandler.Arn
       Principal: apigateway.amazonaws.com
-      SourceArn: !Sub arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:${RestApi}/${ApiStageName}/GET/receipt/{shoppingbasket}
+      SourceArn: !Sub arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:${RestApi}/${ApiStageName}/GET//{shoppingbasket}
 
   Deployment:
     Type: AWS::ApiGateway::Deployment
@@ -174,7 +172,7 @@ Resources:
     Type: AWS::ApiGateway::Stage
     Properties:
       Tags:
-        - Key: "itemis-cc:name"
+        - Key: "receipt-cc:name"
           Value: !Sub ${AWS::StackName}-stage
       AccessLogSetting:
         DestinationArn: !GetAtt AccessLogGroup.Arn
@@ -200,7 +198,7 @@ Resources:
     Type: AWS::IAM::Role
     Properties:
       Tags:
-        - Key: "itemis-cc:name"
+        - Key: "receipt-cc:name"
           Value: !Sub ${AWS::StackName}-apigateway-loggingrole
       AssumeRolePolicyDocument:
         Version: 2012-10-17
