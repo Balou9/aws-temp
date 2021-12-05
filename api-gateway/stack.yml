@@ -135,6 +135,7 @@ Resources:
       FunctionName: !Ref ReadSalesTaxesTotalPriceHandlerName
       Runtime: nodejs12.x
       Handler: index.handler
+      Role: !GetAtt ReadSalesTaxesTotalPriceHandlerExecutionRole.Arn
       MemorySize: !Ref FunctionMemorySize
       Timeout: !Ref FunctionTimeout
 
