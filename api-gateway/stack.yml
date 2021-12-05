@@ -88,7 +88,7 @@ Resources:
         Type: AWS_PROXY
         IntegrationHttpMethod: POST
         Uri: !Sub
-        - arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${ReadSalesTaxesTotalPriceHandlerArn}
+        - arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${ReadSalesTaxesTotalPriceHandlerArn}/invocations
         - ReadSalesTaxesTotalPriceHandlerArn: !GetAtt ReadSalesTaxesTotalPriceHandler.Arn
       MethodResponses:
         - StatusCode: "200"
