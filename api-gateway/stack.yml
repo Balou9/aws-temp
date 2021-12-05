@@ -96,7 +96,8 @@ Resources:
         - StatusCode: "500"
         - StatusCode: "502"
       ResourceId: !Ref ShoppingBasketResource
-
+      RestApiId: !Ref RestApi
+      
   ReadSalesTaxesTotalPriceHandlerExecutionRole:
     Type: AWS::IAM::Role
     Properties:
