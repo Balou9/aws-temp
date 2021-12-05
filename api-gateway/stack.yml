@@ -95,7 +95,7 @@ Resources:
         - StatusCode: "404"
         - StatusCode: "500"
         - StatusCode: "502"
-      ResourceId: !Ref ShoppingBasket‌Resource
+      ResourceId: !Ref ShoppingBasketResource
 
   ReadSalesTaxesTotalPriceHandlerExecutionRole:
     Type: AWS::IAM::Role
