@@ -1,8 +1,12 @@
 {
   "scripts": {
-    "pretty": "npx standard --fix ./index.js"
+    "pretty": "npx standard --fix ./index.js",
+    "compile": "tsc"
   },
-  "dependencies": {
-    "aws-sdk": "2.788.0"
+  "devDependencies": {
+    "aws-sdk": "2.788.0",
+    "@types/aws-lambda": "^8.10.86",
+    "@types/node": "^16.11.11",
+    "typescript": "^4.5.2"
   }
 }
