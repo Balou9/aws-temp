@@ -1,4 +1,4 @@
-module.exports.handler = async function handler (event) {
+export const handler = async function (event: any = {}): Promise<any> => {
   try {
     return { statusCode: 200 }
   } catch (err) {
