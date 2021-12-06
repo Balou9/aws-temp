@@ -84,6 +84,7 @@ jobs:
             --capabilities=CAPABILITY_NAMED_IAM \
             --no-fail-on-empty-changeset
 
-      - name: compile lambda handler 
+      - name: compile lambda handler
         run: |
-          tsc
+          tsc ./api-gateway/lambdas/receipt/read/index.ts 
+          ls
