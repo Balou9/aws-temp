@@ -84,6 +84,6 @@ jobs:
             --capabilities=CAPABILITY_NAMED_IAM \
             --no-fail-on-empty-changeset
 
-      - name: check tsc compiler availability
+      - name: compile lambda handler 
         run: |
-          tsc -h
+          tsc
