@@ -89,5 +89,4 @@ jobs:
           cd api-gateway && npm i
           ls
           tsc ./api-gateway/lambdas/receipt/read/index.ts
-          cd dist
           ls
