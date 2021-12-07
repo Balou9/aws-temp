@@ -1,6 +1,6 @@
 {
-  "extends": "@tsconfig/node16/tsconfig.json",
   "compilerOptions": {
+    "module": "commonjs",
     "noImplicitAny": true,
     "outDir": "./dist"
   },
