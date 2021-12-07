@@ -18,7 +18,7 @@ jobs:
   validate:
     runs-on: ubuntu-latest
     env:
-      CFN_TEMPLATES: "api-gateway/stack.yml\n.github/cd_setup.yml\n"
+      CFN_TEMPLATES: "./api-gateway/stack.yml\n.github/cd_setup.yml\n"
     steps:
       - name: clone the repo
         uses: actions/checkout@v2.3.4
