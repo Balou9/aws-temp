@@ -88,5 +88,5 @@ jobs:
         run: |
           cd api-gateway && npm i
           ls
-          tsc ./api-gateway/lambdas/receipt/read/index.ts
+          tsc lambdas/receipt/read/index.ts
           ls
