@@ -89,4 +89,4 @@ jobs:
           cd api-gateway && npm i
           ls
           tsc lambdas/receipt/read/index.ts
-          ls
+          ls apigateway -R
