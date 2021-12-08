@@ -87,6 +87,6 @@ jobs:
       - name: compile lambda handler
         run: |
           cd api-gateway && npm i
-          ls
-          tsc lambdas/receipt/read/index.ts
+
+          tsc
           ls lambdas -R
