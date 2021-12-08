@@ -89,4 +89,4 @@ jobs:
           cd api-gateway/lambdas && npm i
           tsc
           cd ../dist && ls
-          [ ! -f "index.js" ] && exit 1
+          [ -f "index.js" ] && echo "File is there!" || exit 1
