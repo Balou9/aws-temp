@@ -89,6 +89,4 @@ jobs:
           cd api-gateway/lambdas && npm i
           tsc
           cd ../dist && ls
-          if [ -f "index.js" ]; then
-              exit 1
-          fi
+          [ ! -f "index.js" ] && exit 1
