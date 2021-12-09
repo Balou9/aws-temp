@@ -90,7 +90,7 @@ jobs:
           tsc && ls
           [ -f "dist/index.js" ] && echo "compilation completed!" || exit 1
           npm ci --only=prod
-          cd ../../../../..
+          cd ../../../..
           ls -R
           npx @vercel/ncc@0.33.0 build \
             --external=aws-sdk \
