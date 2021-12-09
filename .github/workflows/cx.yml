@@ -90,4 +90,4 @@ jobs:
           tsc && ls
           [ -f "dist/index.js" ] && echo "compilation completed!" || exit 1
           npm ci --only=prod
-          ls ../../../..
+          ls -R ../../../..
