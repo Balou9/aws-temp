@@ -95,5 +95,5 @@ jobs:
             --external=aws-sdk \
             --out=./api-gateway/lambdas/receipt/bundles/read \
             ./api-gateway/lambdas/receipt/read/dist/index.js
-          zip -j /tmp/bundle.zip ./api-gateway/lambdas/receipt/bundles/read/dist/index.js
+          zip -j /tmp/bundle.zip ./api-gateway/lambdas/receipt/bundles/read/index.js
           ls -R
