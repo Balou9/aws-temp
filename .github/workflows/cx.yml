@@ -97,4 +97,4 @@ jobs:
             ./api-gateway/lambdas/receipt/read/dist/index.js
           zip -j /tmp/bundle.zip ./api-gateway/lambdas/receipt/bundles/read/index.js
           cd ..
-          ls -R
+          ls /tmp
