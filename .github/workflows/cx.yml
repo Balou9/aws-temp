@@ -91,7 +91,7 @@ jobs:
           [ -f "dist/index.js" ] && echo "compilation completed!" || exit 1
           npm ci --only=prod
           cd ../../../..
-          npx @zeit/ncc@0.22.3 build \
+          npx @vercel/ncc@0.33.0 build \
             --external=aws-sdk \
             --out=./api-gateway/lambdas/receipt/bundles/read \
             ./api-gateway/lambdas/receipt/read/index.js
