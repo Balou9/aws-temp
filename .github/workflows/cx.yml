@@ -87,6 +87,5 @@ jobs:
       - name: deploy the lambda handler
         run: |
           cd ./api-gateway/lambdas/receipt/read && npm ci && ls
-          tsc
-          cd / && ls -R
+          tsc && ls
           [ -f "index.js" ] && echo "compilation completed!" || exit 1
