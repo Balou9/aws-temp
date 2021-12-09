@@ -96,9 +96,33 @@ jobs:
             --out=./api-gateway/lambdas/receipt/bundles/read \
             ./api-gateway/lambdas/receipt/read/dist/index.js
           zip -j /tmp/bundle.zip ./api-gateway/lambdas/receipt/bundles/read/index.js
-          cd ..
           [ -f "/tmp/bundle.zip" ] && echo "created lambda zip file archive!!!" || exit 1
           aws lambda update-function-code \
             --function-name=${{ env.READ_SALES_TAXES_TOTAL_PRICE_HANDLER_NAME }} \
             --publish \
             --zip-file=fileb:///tmp/bundle.zip
+
+  test:
+    runs-on: ubuntu-latest
+    needs:
+      - validate
+      - deploy
+    steps:
+      - uses: actions/checkout@v2.3.4
+
+      - name: configure aws credentials
+        uses: aws-actions/configure-aws-credentials@v1.5.3
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: fetch stack outputs
+        run: |
+          api_base_url="$( \
+            aws cloudformation describe-stacks \
+              --stack-name="${{ needs.deploy.outputs._stack_name }}" \
+              --query="Stacks[0].Outputs[?OutputKey=='ApiBaseURL'].OutputValue" \
+              --output=text \
+          )"
+          echo "_BASE_URL=$api_base_url" >> $GITHUB_ENV
