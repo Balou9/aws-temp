@@ -88,4 +88,4 @@ jobs:
         run: |
           cd ./api-gateway/lambdas/receipt/read && npm i && ls
           tsc && ls
-          [ -f "index.js" ] && echo "compilation completed!" || exit 1
+          [ -f "dist/index.js" ] && echo "compilation completed!" || exit 1
