@@ -94,6 +94,6 @@ jobs:
           npx @vercel/ncc@0.33.0 build \
             --external=aws-sdk \
             --out=./api-gateway/lambdas/receipt/bundles/read \
-            ./api-gateway/lambdas/receipt/read/index.js
-          zip -j /tmp/bundle.zip ./api-gateway/lambdas/receipt/bundles/read/index.js
+            ./api-gateway/lambdas/receipt/read/dist/index.js
+          zip -j /tmp/bundle.zip ./api-gateway/lambdas/receipt/bundles/read/dist/index.js
           ls
