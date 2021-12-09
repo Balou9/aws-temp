@@ -65,7 +65,7 @@ jobs:
         id: configure_environment
         run: |
           echo "STACK_NAME=sample-api-$ENVIRONMENT" >> $GITHUB_ENV
-          echo "READ_SALES_TAXES_TOTAL_PRICE_NAME=sample-api-$ENVIRONMENT-readsalestaxestotalpricehandler" >> $GITHUB_ENV
+          echo "READ_SALES_TAXES_TOTAL_PRICE_HANDLER_NAME=sample-api-$ENVIRONMENT-readsalestaxestotalpricehandler" >> $GITHUB_ENV
           echo "::set-output name=_stack_name::sample-api-$ENVIRONMENT"
 
       - name: deploy the api gateway stack
@@ -80,7 +80,7 @@ jobs:
               FunctionTimeout=${{ env.FUNC_TIMEOUT}} \
               FunctionLogRetentionInDays=${{ env.FUNC_LOG_RETENTION_DAYS }} \
               AccessLogRetentionInDays=${{ env.ACCESS_LOG_RETENTION_DAYS }} \
-              ReadSalesTaxesTotalPriceHandlerName=${{ env.READ_SALES_TAXES_TOTAL_PRICE_NAME }} \
+              ReadSalesTaxesTotalPriceHandlerName=${{ env.READ_SALES_TAXES_TOTAL_PRICE_HANDLER_NAME }} \
             --capabilities=CAPABILITY_NAMED_IAM \
             --no-fail-on-empty-changeset
 
@@ -88,7 +88,7 @@ jobs:
         run: |
           cd ./api-gateway/lambdas/receipt/read && npm i && ls | grep package-lock
           tsc && ls
-          [ -f "dist/index.js" ] && echo "compilation completed!" || exit 1
+          [ -f "dist/index.js" ] && echo "compilation completed!!!" || exit 1
           npm ci --only=prod
           cd ../../../..
           npx @vercel/ncc@0.33.0 build \
@@ -97,4 +97,8 @@ jobs:
             ./api-gateway/lambdas/receipt/read/dist/index.js
           zip -j /tmp/bundle.zip ./api-gateway/lambdas/receipt/bundles/read/index.js
           cd ..
-          ls /tmp
+          [ -f "/tmp/bundle.zip" ] && echo "created lambda zip file archive!!!" || exit 1
+          aws lambda update-function-code \
+            --function-name=${{ env.READ_SALES_TAXES_TOTAL_PRICE_HANDLER_NAME }} \
+            --publish \
+            --zip-file=fileb:///tmp/bundle.zip
