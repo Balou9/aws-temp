@@ -80,7 +80,7 @@ Resources:
     Type: AWS::ApiGateway::Method
     Properties:
       AuthorizationType: NONE
-      HttpMethod: GET
+      HttpMethod: POST
       RequestParameters:
         method.request.path.profileName: True
       RequestValidatorId: !Ref RequestValidator
