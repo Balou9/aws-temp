@@ -131,4 +131,5 @@ jobs:
         run: |
           printf "[DEBUG] api base url: %s\n" "$_BASE_URL"
           source <(curl -sSf https://raw.githubusercontent.com/chiefbiiko/bashert/v1.0.1/bashert.sh)
+          source test/test_suite.sh
           test_receipt_upsert_204
