@@ -65,7 +65,7 @@ jobs:
         id: configure_environment
         run: |
           echo "STACK_NAME=sample-api-$ENVIRONMENT" >> $GITHUB_ENV
-          echo "READ_SALES_TAXES_TOTAL_PRICE_HANDLER_NAME=sample-api-$ENVIRONMENT-readsalestaxestotalpricehandler" >> $GITHUB_ENV
+          echo "UPSERT_SALES_TAXES_TOTAL_PRICE_HANDLER_NAME=sample-api-$ENVIRONMENT-upsertsalestaxestotalpricehandler" >> $GITHUB_ENV
           echo "::set-output name=_stack_name::sample-api-$ENVIRONMENT"
 
       - name: deploy the api gateway stack
@@ -80,25 +80,25 @@ jobs:
               FunctionTimeout=${{ env.FUNC_TIMEOUT}} \
               FunctionLogRetentionInDays=${{ env.FUNC_LOG_RETENTION_DAYS }} \
               AccessLogRetentionInDays=${{ env.ACCESS_LOG_RETENTION_DAYS }} \
-              ReadSalesTaxesTotalPriceHandlerName=${{ env.READ_SALES_TAXES_TOTAL_PRICE_HANDLER_NAME }} \
+              UpsertSalesTaxesTotalPriceHandlerName=${{ env.UPSERT_SALES_TAXES_TOTAL_PRICE_HANDLER_NAME }} \
             --capabilities=CAPABILITY_NAMED_IAM \
             --no-fail-on-empty-changeset
 
       - name: deploy the lambda handler
         run: |
-          cd ./api-gateway/lambdas/receipt/read && npm i && ls | grep package-lock
+          cd ./api-gateway/lambdas/receipt/upsert && npm i && ls | grep package-lock
           tsc && ls
           [ -f "dist/index.js" ] && echo "compilation completed!!!" || exit 1
           npm ci --only=prod
           cd ../../../..
           npx @vercel/ncc@0.33.0 build \
             --external=aws-sdk \
-            --out=./api-gateway/lambdas/receipt/bundles/read \
-            ./api-gateway/lambdas/receipt/read/dist/index.js
-          zip -j /tmp/bundle.zip ./api-gateway/lambdas/receipt/bundles/read/index.js
+            --out=./api-gateway/lambdas/receipt/bundles/upsert \
+            ./api-gateway/lambdas/receipt/upsert/dist/index.js
+          zip -j /tmp/bundle.zip ./api-gateway/lambdas/receipt/bundles/upsert/index.js
           [ -f "/tmp/bundle.zip" ] && echo "created lambda zip file archive!!!" || exit 1
           aws lambda update-function-code \
-            --function-name=${{ env.READ_SALES_TAXES_TOTAL_PRICE_HANDLER_NAME }} \
+            --function-name=${{ env.UPSERT_SALES_TAXES_TOTAL_PRICE_HANDLER_NAME }} \
             --publish \
             --zip-file=fileb:///tmp/bundle.zip
 
@@ -131,3 +131,4 @@ jobs:
         run: |
           printf "[DEBUG] api base url: %s\n" "$_BASE_URL"
           source <(curl -sSf https://raw.githubusercontent.com/chiefbiiko/bashert/v1.0.1/bashert.sh)
+          test_receipt_upsert_204

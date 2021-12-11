@@ -12,7 +12,7 @@ Metadata:
           - FunctionMemorySize
           - FunctionTimeout
           - FunctionLogRetentionInDays
-          - ReadSalesTaxesTotalPriceHandlerName
+          - UpsertSalesTaxesTotalPriceHandlerName
 
 Parameters:
   ApiStageName:
@@ -40,7 +40,7 @@ Parameters:
     Type: Number
     Default: 3
 
-  ReadSalesTaxesTotalPriceHandlerName:
+  UpsertSalesTaxesTotalPriceHandlerName:
     Description: Lambda function name for the 'get profile' handler
     AllowedPattern: "^[a-z0-9]+[a-z0-9-]+[a-z0-9]+$"
     Type: String
@@ -76,7 +76,7 @@ Resources:
       PathPart: "{shoppingbasket}"
       RestApiId: !Ref RestApi
 
-  ReadSalesTaxesTotalPriceMethod:
+  UpsertSalesTaxesTotalPriceMethod:
     Type: AWS::ApiGateway::Method
     Properties:
       AuthorizationType: NONE
@@ -88,22 +88,22 @@ Resources:
         Type: AWS_PROXY
         IntegrationHttpMethod: POST
         Uri: !Sub
-        - arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${ReadSalesTaxesTotalPriceHandlerArn}/invocations
-        - ReadSalesTaxesTotalPriceHandlerArn: !GetAtt ReadSalesTaxesTotalPriceHandler.Arn
+        - arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${UpsertSalesTaxesTotalPriceHandlerArn}/invocations
+        - UpsertSalesTaxesTotalPriceHandlerArn: !GetAtt UpsertSalesTaxesTotalPriceHandler.Arn
       MethodResponses:
-        - StatusCode: "200"
+        - StatusCode: "204"
         - StatusCode: "404"
         - StatusCode: "500"
         - StatusCode: "502"
       ResourceId: !Ref ShoppingBasketResource
       RestApiId: !Ref RestApi
 
-  ReadSalesTaxesTotalPriceHandlerExecutionRole:
+  UpsertSalesTaxesTotalPriceHandlerExecutionRole:
     Type: AWS::IAM::Role
     Properties:
       Tags:
         - Key: "receipt-cc:name"
-          Value: !Sub ${ReadSalesTaxesTotalPriceHandlerName}-executionrole
+          Value: !Sub ${UpsertSalesTaxesTotalPriceHandlerName}-executionrole
       AssumeRolePolicyDocument:
         Version: 2012-10-17
         Statement:
@@ -113,7 +113,7 @@ Resources:
               Service: lambda.amazonaws.com
             Action: sts:AssumeRole
       Policies:
-        - PolicyName: ReadSalesTaxesTotalPriceHandlerExecutionPolicy
+        - PolicyName: UpsertSalesTaxesTotalPriceHandlerExecutionPolicy
           PolicyDocument:
             Version: 2012-10-17
             Statement:
@@ -125,42 +125,42 @@ Resources:
                   - logs:PutLogEvents
                 Resource: arn:aws:logs:*:*:*
 
-  ReadSalesTaxesTotalPriceHandler:
+  UpsertSalesTaxesTotalPriceHandler:
     Type: AWS::Lambda::Function
     Properties:
       Tags:
         - Key: "receipt-cc:name"
-          Value: !Ref ReadSalesTaxesTotalPriceHandlerName
+          Value: !Ref UpsertSalesTaxesTotalPriceHandlerName
       Code:
         ZipFile: // dummy
-      FunctionName: !Ref ReadSalesTaxesTotalPriceHandlerName
+      FunctionName: !Ref UpsertSalesTaxesTotalPriceHandlerName
       Runtime: nodejs12.x
       Handler: index.handler
-      Role: !GetAtt ReadSalesTaxesTotalPriceHandlerExecutionRole.Arn
+      Role: !GetAtt UpsertSalesTaxesTotalPriceHandlerExecutionRole.Arn
       MemorySize: !Ref FunctionMemorySize
       Timeout: !Ref FunctionTimeout
 
-  ReadSalesTaxesTotalPriceHandlerLogGroup:
+  UpsertSalesTaxesTotalPriceHandlerLogGroup:
     Type: AWS::Logs::LogGroup
     Properties:
-      LogGroupName: !Sub /aws/lambda/${ReadSalesTaxesTotalPriceHandlerName}
+      LogGroupName: !Sub /aws/lambda/${UpsertSalesTaxesTotalPriceHandlerName}
       RetentionInDays: !Ref FunctionLogRetentionInDays
 
-  ReadSalesTaxesTotalPriceHandlerPermission:
+  UpsertSalesTaxesTotalPriceHandlerPermission:
     Type: AWS::Lambda::Permission
     DependsOn:
       - RestApi
-      - ReadSalesTaxesTotalPriceHandler
+      - UpsertSalesTaxesTotalPriceHandler
     Properties:
       Action: lambda:InvokeFunction
-      FunctionName: !GetAtt ReadSalesTaxesTotalPriceHandler.Arn
+      FunctionName: !GetAtt UpsertSalesTaxesTotalPriceHandler.Arn
       Principal: apigateway.amazonaws.com
       SourceArn: !Sub arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:${RestApi}/${ApiStageName}/GET/{shoppingbasket}
 
   Deployment:
     Type: AWS::ApiGateway::Deployment
     DependsOn:
-      - ReadSalesTaxesTotalPriceMethod
+      - UpsertSalesTaxesTotalPriceMethod
     Properties:
       RestApiId: !Ref RestApi
 
