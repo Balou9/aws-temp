@@ -8,7 +8,7 @@ test_receipt_upsert_204() {
   -H "content-type: application/json" \
   --data @./test/fixtures/shopping_basket.json \
   -D "$resp_head" \
-  "$_BASE_URL/receipt"
+  "$_BASE_URL/receipt/sb412429"
   > "$resp_body"
 
   cat "$resp_body"
