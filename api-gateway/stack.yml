@@ -82,7 +82,7 @@ Resources:
       AuthorizationType: NONE
       HttpMethod: PUT
       RequestParameters:
-        method.request.path.profileName: True
+        method.request.path.shoppingbasket: True
       RequestValidatorId: !Ref RequestValidator
       Integration:
         Type: AWS_PROXY
