@@ -3,12 +3,14 @@ test_receipt_upsert_204() {
   resp_head="$(mktemp)"
   resp_body="$(mktemp)"
 
+  shopbaskey="421398"
+
   lurc \
   -X "PUT" \
   -H "content-type: application/json" \
   --data @./test/fixtures/shopping_basket.json \
   -D "$resp_head" \
-  "$_BASE_URL/receipt"
+  "$_BASE_URL/receipt/$shopbaskey"
   > "$resp_body"
 
   cat "$resp_body"
