@@ -155,7 +155,7 @@ Resources:
       Action: lambda:InvokeFunction
       FunctionName: !GetAtt UpsertSalesTaxesTotalPriceHandler.Arn
       Principal: apigateway.amazonaws.com
-      SourceArn: !Sub arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:${RestApi}/${ApiStageName}/GET/{shoppingbasket}
+      SourceArn: !Sub arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:${RestApi}/${ApiStageName}/GET/receipt/{shoppingbasket}
 
   Deployment:
     Type: AWS::ApiGateway::Deployment
