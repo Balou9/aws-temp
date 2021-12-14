@@ -82,6 +82,7 @@ Resources:
       AuthorizationType: NONE
       HttpMethod: PUT
       RequestParameters:
+        method.request.header.content-type: True
         method.request.path.shoppingbasket: True
       RequestValidatorId: !Ref RequestValidator
       Integration:
@@ -95,7 +96,7 @@ Resources:
         - StatusCode: "404"
         - StatusCode: "500"
         - StatusCode: "502"
-      ResourceId: !Ref CollectionResource
+      ResourceId: !Ref ShoppingBasketResource
       RestApiId: !Ref RestApi
 
   UpsertSalesTaxesTotalPriceHandlerExecutionRole:
