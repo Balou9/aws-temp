@@ -8,7 +8,7 @@ export const handler = async (
 ): Promise<APIGatewayProxyResult> => {
   const params = JSON.stringify(event.queryStringParameters);
   return {
-    statusCode: 200,
+    statusCode: 204,
     body: `Params: ${params}`
   }
 }

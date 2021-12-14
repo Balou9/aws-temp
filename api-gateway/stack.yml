@@ -93,7 +93,8 @@ Resources:
         - UpsertSalesTaxesTotalPriceHandlerArn: !GetAtt UpsertSalesTaxesTotalPriceHandler.Arn
       MethodResponses:
         - StatusCode: "204"
-        - StatusCode: "404"
+        - StatusCode: "400"
+        - StatusCode: "415"        
         - StatusCode: "500"
         - StatusCode: "502"
       ResourceId: !Ref ShoppingBasketResource
