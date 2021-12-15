@@ -18,6 +18,7 @@ Resources:
                 Effect: Allow
                 Action:
                   - cloudformation:*
+                  - cloudfront:*
                   - lambda:*
                   - iam:*
                   - apigateway:*
