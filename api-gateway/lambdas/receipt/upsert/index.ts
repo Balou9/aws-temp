@@ -6,9 +6,9 @@ import {
 export const handler = async (
   event: APIGatewayProxyEvent
 ): Promise<APIGatewayProxyResult> => {
-  const params = JSON.stringify(event.queryStringParameters);
+  const ev = JSON.stringify(event);
   return {
     statusCode: 204,
-    body: `Params: ${params}`
+    body: `Event: ${ev}`
   }
 }
