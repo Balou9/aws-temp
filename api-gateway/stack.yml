@@ -62,7 +62,7 @@ Resources:
       ValidateRequestBody: True
       ValidateRequestParameters: True
 
-  CollectionResource:
+  ReceiptCollectionResource:
     Type: AWS::ApiGateway::Resource
     Properties:
       ParentId: !GetAtt RestApi.RootResourceId
@@ -72,7 +72,7 @@ Resources:
   ShoppingBasketResource:
     Type: AWS::ApiGateway::Resource
     Properties:
-      ParentId: !Ref CollectionResource
+      ParentId: !Ref ReceiptCollectionResource
       PathPart: "{shoppingbasket}"
       RestApiId: !Ref RestApi
 
@@ -94,7 +94,7 @@ Resources:
       MethodResponses:
         - StatusCode: "204"
         - StatusCode: "400"
-        - StatusCode: "415"        
+        - StatusCode: "415"
         - StatusCode: "500"
         - StatusCode: "502"
       ResourceId: !Ref ShoppingBasketResource
@@ -157,7 +157,7 @@ Resources:
       Action: lambda:InvokeFunction
       FunctionName: !GetAtt UpsertSalesTaxesTotalPriceHandler.Arn
       Principal: apigateway.amazonaws.com
-      SourceArn: !Sub arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:${RestApi}/${ApiStageName}/PUT/receipt/{shoppingbasket}
+      SourceArn: !Sub arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:${RestApi}/${ApiStageName}/PUT/receipt/*
 
   Deployment:
     Type: AWS::ApiGateway::Deployment
