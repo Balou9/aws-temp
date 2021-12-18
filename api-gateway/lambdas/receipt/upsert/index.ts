@@ -7,7 +7,7 @@ export const handler = async (
   event: APIGatewayProxyEventV2
 ): Promise<APIGatewayProxyResult> => {
 
-  if (event.body || event.body.lengths) {
+  if (!event.body || !event.body.length) {
     return { statusCode: 400 }
   }
 
