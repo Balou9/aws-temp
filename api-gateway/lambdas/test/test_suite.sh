@@ -1,9 +1,10 @@
+shopping_basket="sb412429"
+
 test_receipt_upsert_204() {
   printf "test_receipt_upsert_204\n"
   resp_head="$(mktemp)"
   resp_body="$(mktemp)"
 
-  shopping_basket="sb412429"
 
   lurc \
   -X "PUT" \
@@ -28,7 +29,7 @@ test_receipt_upsert_400_no_body() {
     -X "PUT" \
     -H "content-type: application/json" \
     -D "$resp_head" \
-    "$_BASE_URL/receipt/$receiptName"
+    "$_BASE_URL/receipt/$shopping_basket"
 
   assert_status "$resp_head" 400
 }
