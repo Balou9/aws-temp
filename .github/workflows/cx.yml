@@ -133,3 +133,4 @@ jobs:
           source <(curl -sSf https://raw.githubusercontent.com/chiefbiiko/bashert/v1.0.1/bashert.sh)
           source ./api-gateway/lambdas/test/test_suite.sh
           test_receipt_upsert_204
+          test_receipt_upsert_400_no_body
