@@ -134,3 +134,5 @@ jobs:
           source ./api-gateway/lambdas/test/test_suite.sh
           test_receipt_upsert_204
           test_receipt_upsert_400_no_body
+          test_receipt_upsert_415_no_content_type
+          test_receipt_upsert_415_unexpected_content_type

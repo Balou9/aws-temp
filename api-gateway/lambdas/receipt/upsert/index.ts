@@ -11,6 +11,12 @@ export const handler = async (
     return { statusCode: 400 }
   }
 
+  const contentType = event.headers["content-type"];
+
+  if (!contentType || !contentType.startsWith("application/json")) {
+    return { statusCode: 415 }
+  }
+
   return {
     statusCode: 204,
     body: `Event: ${JSON.stringify(event)}`
