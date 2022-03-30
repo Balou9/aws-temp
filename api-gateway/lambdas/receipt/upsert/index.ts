@@ -19,6 +19,6 @@ export const handler = async (
 
   return {
     statusCode: 204,
-    body: `Event: ${JSON.stringify(event)}`
+    body: `Event: ${JSON.stringify(event.body)}`
   }
 }

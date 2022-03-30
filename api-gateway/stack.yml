@@ -1,5 +1,5 @@
 AWSTemplateFormatVersion: 2010-09-09
-Description: stack which returns  a shopping cart receipt with the total price and the sales taxes
+Description: stack which returns a shopping cart receipt with the total price and the sales taxes
 
 Metadata:
   AWS::Cloudformation::Interface:
