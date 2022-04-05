@@ -1,13 +1,19 @@
 AWSTemplateFormatVersion: 2010-09-09
 Description: website s3 bucket stack
 
-Parameters:
-  BucketName:
-    Type: String
-    Default: mysite.example.com
-  HostedZoneName:
-    Type: String
-    Default: example.com
+Metadata:
+  AWS::Cloudformation::Interface:
+    Parametergroups:
+      - Label:
+          default: API
+        Parameters:
+          - ApiStageName
+          - AccessLogRetentionInDays
+          - FunctionMemorySize
+          - FunctionTimeout
+          - FunctionLogRetentionInDays
+          - UpsertSalesTaxesTotalPriceHandlerName
+
 Resources:
   S3Bucket:
     Type: AWS::S3::Bucket
@@ -19,6 +25,7 @@ Resources:
         ErrorDocument: error.html
     DeletionPolicy: Retain
     UpdateReplacePolicy: Retain
+
   BucketPolicy:
     Type: AWS::S3::BucketPolicy
     Properties:
@@ -51,17 +58,10 @@ Resources:
         TTL: 900
         ResourceRecords:
         - !Join ['', !Split ['http://', !GetAtt S3Bucket.WebsiteURL ]]
+
 Outputs:
   WebsiteURL:
+    Description: URL for website hosted on S3
     Value: !GetAtt
       - S3Bucket
       - WebsiteURL
-    Description: URL for website hosted on S3
-  S3BucketSecureURL:
-    Value: !Join
-      - ''
-      - - 'https://'
-        - !GetAtt
-          - S3Bucket
-          - DomainName
-    Description: Name of S3 bucket to hold website content
