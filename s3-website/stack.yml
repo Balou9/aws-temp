@@ -5,15 +5,15 @@ Metadata:
   AWS::Cloudformation::Interface:
     Parametergroups:
       - Label:
-          default: API
+          default: Storage
         Parameters:
-          - ApiStageName
-          - AccessLogRetentionInDays
-          - FunctionMemorySize
-          - FunctionTimeout
-          - FunctionLogRetentionInDays
-          - UpsertSalesTaxesTotalPriceHandlerName
+          - BucketName
 
+Parameters:
+  BucketName: Name of the S3 bucket hosting the website
+    AllowedPattern: "^[a-z0-9]+[a-z0-9-]+[a-z0-9]+$"
+    Type: String
+    
 Resources:
   S3Bucket:
     Type: AWS::S3::Bucket

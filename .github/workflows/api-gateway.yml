@@ -1,6 +1,10 @@
 name: api-gateway
 
-on: push
+on:
+  push:
+    paths:
+    - ".github/workflows/api-gateway.yml"
+    - "api-gateway/"
 
 env:
   AWS_REGION: us-east-1
