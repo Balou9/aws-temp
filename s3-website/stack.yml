@@ -8,19 +8,33 @@ Metadata:
           default: Storage
         Parameters:
           - BucketName
+      - Label:
+          default: DNS
+        Parameters:
+          - HostedZoneName
 
 Parameters:
   BucketName:
-    Description: Name of the S3 bucket hosting the website 
+    Description: Name of the S3 bucket hosting the website
     AllowedPattern: "^[a-z0-9]+[a-z0-9-]+[a-z0-9]+$"
     Type: String
+    Default: mysite.icydigital.com
+
+  HostedZoneName:
+    Description: Name of the hosted zone
+    AllowedPattern: "^[a-z0-9]+[a-z0-9-]+[a-z0-9]+$"
+    Type: String
+    Default: icydigital.com
 
 Resources:
-  S3Bucket:
+  WebsiteBucket:
     Type: AWS::S3::Bucket
     Properties:
       BucketName: !Ref BucketName
       AccessControl: PublicRead
+      LoggingConfiguration:
+        DestinationBucketName: !Ref LoggingBucket
+        LogFilePrefix: test-website-logs
       WebsiteConfiguration:
         IndexDocument: index.html
         ErrorDocument: error.html
@@ -30,7 +44,7 @@ Resources:
   BucketPolicy:
     Type: AWS::S3::BucketPolicy
     Properties:
-      Bucket: !Ref S3Bucket
+      Bucket: !Ref WebsiteBucket
       PolicyDocument:
         Id: MyPolicy
         Version: 2012-10-17
@@ -42,8 +56,9 @@ Resources:
             Resource: !Join
               - ''
               - - 'arn:aws:s3:::'
-                - !Ref S3Bucket
+                - !Ref WebsiteBucket
                 - /*
+
   DNS:
     Type: AWS::Route53::RecordSetGroup
     Properties:
@@ -51,14 +66,14 @@ Resources:
         - ''
         - - !Ref HostedZoneName
           - '.'
-      Comment: Add CName to point to S3 bucket endpoint.
+      Comment: Add CName to point to S3 bucket endpoint
       RecordSets:
       -
         Name: !Ref BucketName
         Type: CNAME
         TTL: 900
         ResourceRecords:
-        - !Join ['', !Split ['http://', !GetAtt S3Bucket.WebsiteURL ]]
+        - !Join ['', !Split ['http://', !GetAtt WebsiteBucket.WebsiteURL ]]
 
 Outputs:
   WebsiteURL:
