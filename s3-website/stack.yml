@@ -16,13 +16,11 @@ Metadata:
 Parameters:
   BucketName:
     Description: Name of the S3 bucket hosting the website
-    AllowedPattern: "^[a-z0-9]+[a-z0-9-]+[a-z0-9]+$"
     Type: String
     Default: mysite.icydigital.com
 
   HostedZoneName:
     Description: Name of the hosted zone
-    AllowedPattern: "^[a-z0-9]+[a-z0-9-]+[a-z0-9]+$"
     Type: String
     Default: icydigital.com
 
