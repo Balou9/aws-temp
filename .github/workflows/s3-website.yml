@@ -2,10 +2,9 @@ name: s3-website
 
 on: push
 
-defaults:
-  run:
-    shell: "/bin/bash {0}"
-
+env:
+  AWS_REGION: us-east-1
+  
 jobs:
   validate:
     runs-on: ubuntu-latest
