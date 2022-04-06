@@ -39,6 +39,11 @@ Resources:
     DeletionPolicy: Retain
     UpdateReplacePolicy: Retain
 
+  LoggingBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      AccessControl: LogDeliveryWrite
+
   BucketPolicy:
     Type: AWS::S3::BucketPolicy
     Properties:
