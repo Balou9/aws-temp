@@ -82,5 +82,5 @@ Outputs:
   WebsiteURL:
     Description: URL for website hosted on S3
     Value: !GetAtt
-      - S3Bucket
+      - WebsiteBucket
       - WebsiteURL
