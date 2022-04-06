@@ -30,19 +30,11 @@ Resources:
     Properties:
       BucketName: !Ref BucketName
       AccessControl: PublicRead
-      LoggingConfiguration:
-        DestinationBucketName: !Ref LoggingBucket
-        LogFilePrefix: test-website-logs
       WebsiteConfiguration:
         IndexDocument: index.html
         ErrorDocument: error.html
     DeletionPolicy: Delete
     UpdateReplacePolicy: Delete
-
-  LoggingBucket:
-    Type: AWS::S3::Bucket
-    Properties:
-      AccessControl: LogDeliveryWrite
 
   BucketPolicy:
     Type: AWS::S3::BucketPolicy
