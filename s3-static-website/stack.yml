@@ -53,6 +53,12 @@ Resources:
               - - 'arn:aws:s3:::'
                 - !Ref WebsiteBucket
                 - /*
+  HostedZone:
+    Type: "AWS::Route53::HostedZone"
+    Properties:
+      HostedZoneConfig:
+        Comment: 'My hosted zone for example.com'
+      Name: !Ref HostedZoneName
 
   DNS:
     Type: AWS::Route53::RecordSetGroup
@@ -64,7 +70,7 @@ Resources:
       Comment: Add CName to point to S3 bucket endpoint
       RecordSets:
       -
-        Name: !Ref WebsiteBucket
+        Name: !Ref BucketName
         Type: CNAME
         TTL: 900
         ResourceRecords:
