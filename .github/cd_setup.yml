@@ -22,6 +22,8 @@ Resources:
                   - iam:*
                   - apigateway:*
                   - logs:*
+                  - s3:*
+                  
                 Resource: "*"
 
   AccessKey:
