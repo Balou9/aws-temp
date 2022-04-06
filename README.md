@@ -3,4 +3,4 @@
 
 # aws-temp
 
-Reusable cloudformation templates
+reusable cloudformation templates

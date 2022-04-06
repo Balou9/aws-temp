@@ -64,7 +64,7 @@ Resources:
       Comment: Add CName to point to S3 bucket endpoint
       RecordSets:
       -
-        Name: !Ref BucketName
+        Name: !Ref WebsiteBucket
         Type: CNAME
         TTL: 900
         ResourceRecords:

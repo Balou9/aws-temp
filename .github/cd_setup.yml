@@ -23,7 +23,7 @@ Resources:
                   - apigateway:*
                   - logs:*
                   - s3:*
-                  
+                  - route53:*
                 Resource: "*"
 
   AccessKey:
