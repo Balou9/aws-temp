@@ -63,10 +63,7 @@ Resources:
   DNS:
     Type: AWS::Route53::RecordSetGroup
     Properties:
-      HostedZoneName: !Join
-        - ''
-        - - !Ref HostedZoneName
-          - '.'
+      HostedZoneName: !Ref HostedZoneName
       Comment: Add CName to point to S3 bucket endpoint
       RecordSets:
       -
