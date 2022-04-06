@@ -17,7 +17,7 @@ Parameters:
   BucketName:
     Description: Name of the S3 bucket hosting the website
     Type: String
-    Default: mysite.icydigital.com
+    Default: test.icydigital.com
 
   HostedZoneName:
     Description: Name of the hosted zone

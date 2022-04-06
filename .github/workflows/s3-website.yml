@@ -61,7 +61,7 @@ jobs:
         run: |
           echo "SITE_STACK_NAME=$ENVIRONMENT-s3-website" >> $GITHUB_ENV
           echo "SITE_BUCKET_NAME=$ENVIRONMENT-s3-website" >> $GITHUB_ENV
-          echo "::set-output name=_stack_name::$ENVIRONMENT-s3-website"
+          echo "::set-output name=_stack_name::$ENVIRONMENT-s3-static-site"
 
       - name: deploy the s3 website stack
         run: |
