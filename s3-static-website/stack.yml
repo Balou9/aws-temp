@@ -57,7 +57,7 @@ Resources:
     Type: "AWS::Route53::HostedZone"
     Properties:
       HostedZoneConfig:
-        Comment: 'My hosted zone for example.com'
+        Comment: 'My hosted zone for icydigital.com'
       Name: !Ref HostedZoneName
 
   DNS:
