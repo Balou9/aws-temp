@@ -53,13 +53,7 @@ Resources:
               - - 'arn:aws:s3:::'
                 - !Ref WebsiteBucket
                 - /*
-  HostedZone:
-    Type: "AWS::Route53::HostedZone"
-    Properties:
-      HostedZoneConfig:
-        Comment: 'My hosted zone for icydigital.com'
-      Name: !Ref HostedZoneName
-
+                
   DNS:
     Type: AWS::Route53::RecordSetGroup
     Properties:
