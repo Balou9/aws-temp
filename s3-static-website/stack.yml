@@ -60,12 +60,11 @@ Resources:
       Comment: Add CName to point to S3 bucket endpoint
       RecordSets:
       -
-        Name:
-          - !Join [!Ref BucketName, '.', !Ref HostedZoneName]
+        Name: test-s3-static-website-431279.icydigital.com.
         Type: CNAME
         TTL: 900
         ResourceRecords:
-          - !Join ['', !Split ['http://', !GetAtt WebsiteBucket.WebsiteURL ]]
+        - !Join ['', !Split ['http://', !GetAtt WebsiteBucket.WebsiteURL ]]
 
 Outputs:
   WebsiteURL:
