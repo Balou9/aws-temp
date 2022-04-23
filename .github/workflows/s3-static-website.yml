@@ -78,5 +78,5 @@ jobs:
       - name: set website configuration for website bucket
         run: |
           aws s3 website s3://${{ env.SITE_BUCKET_NAME }}/ \
-            --index-document="./s3-static-website/index.html" \
-            --error-document="./s3-static-website/error.html"
+            --index-document index.html \
+            --error-document error.html
