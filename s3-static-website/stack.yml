@@ -17,7 +17,6 @@ Parameters:
   BucketName:
     Description: Name of the S3 bucket hosting the website
     Type: String
-    Default: test.icydigital.com
 
   HostedZoneName:
     Description: Name of the hosted zone
@@ -41,7 +40,7 @@ Resources:
     Properties:
       Bucket: !Ref WebsiteBucket
       PolicyDocument:
-        Id: MyPolicy
+        Id: WebsiteBucketPolicy
         Version: 2012-10-17
         Statement:
           - Sid: PublicReadForGetBucketObjects
@@ -53,7 +52,7 @@ Resources:
               - - 'arn:aws:s3:::'
                 - !Ref WebsiteBucket
                 - /*
-                
+
   DNS:
     Type: AWS::Route53::RecordSetGroup
     Properties:
