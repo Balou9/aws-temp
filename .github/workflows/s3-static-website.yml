@@ -80,3 +80,7 @@ jobs:
           aws s3 website s3://${{ env.SITE_BUCKET_NAME }}/ \
             --index-document index.html \
             --error-document error.html
+
+      - name: upload static website content
+        run: |
+          aws s3 sync ./s3-static-website/web "s3://${{ env.SITE_BUCKET_NAME }}/" 
