@@ -60,7 +60,7 @@ Resources:
       Comment: Add CName to point to S3 bucket endpoint
       RecordSets:
       -
-        Name: !Ref BucketName
+        Name: test-s3-static-website-431279.icydigital.com.
         Type: CNAME
         TTL: 900
         ResourceRecords:
